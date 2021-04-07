@@ -36,13 +36,34 @@ func (uc *distanceUsecase) GetDistance(params *DistanceParams) (*DistanceRespons
 		DistanceFromOrigin: stringToInt64(params.Distance.Distance),
 	}
 
-	log.Info(origin)
+	points := make([]entity.Point, 0)
 
-	log.Info(uc.points)
+	for i := 0; i < len(uc.points); i++ {
+		p := uc.points[i]
+
+		manhattanDistance := abs(origin.PosX-p.PosX) + abs(origin.PosY-p.PosY)
+		p.DistanceFromOrigin = manhattanDistance
+
+		if manhattanDistance <= origin.DistanceFromOrigin {
+			points = append(points, p)
+		}
+	}
+
+	log.Info(origin)
+	log.Info(points)
+
+	response.Points = points
 
 	return &DistanceResponse{
 		Data: response,
 	}, nil
+}
+
+func abs(x int64) int64 {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
 
 func stringToInt64(value string) int64 {
@@ -53,4 +74,3 @@ func stringToInt64(value string) int64 {
 	}
 	return number
 }
-
