@@ -1,6 +1,7 @@
 package distance_calculator
 
 import (
+	"sort"
 	"strconv"
 
 	"github.com/danieeelfr/cartesian/internal/config"
@@ -49,9 +50,13 @@ func (uc *distanceUsecase) GetDistance(params *DistanceParams) (*DistanceRespons
 		}
 	}
 
-	log.Info(origin)
 	log.Info(points)
 
+	sort.SliceStable(points, func(i, j int) bool {
+		return points[i].DistanceFromOrigin < points[j].DistanceFromOrigin
+	})
+
+	log.Info(points)
 	response.Points = points
 
 	return &DistanceResponse{
