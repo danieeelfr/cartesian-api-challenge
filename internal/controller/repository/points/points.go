@@ -2,16 +2,12 @@ package points
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"os"
-	"path"
 
 	"github.com/danieeelfr/cartesian/internal/entity"
 )
 
 type Points struct {
-	// Points *entity.DistanceResponse
 }
 
 func NewPoints() (*Points, error) {
@@ -19,10 +15,9 @@ func NewPoints() (*Points, error) {
 	return srv, nil
 }
 
-func (ref *Points) GetPoints() ([]entity.Point, error) {
-	root := root_dir()
+func (ref *Points) GetPoints(filePath string) ([]entity.Point, error) {
 
-	file, err := ioutil.ReadFile(root + "/data/points.json")
+	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil, err
 	}
@@ -33,20 +28,4 @@ func (ref *Points) GetPoints() ([]entity.Point, error) {
 	}
 
 	return p.Points, nil
-}
-
-func root_dir() string {
-	dirname, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Current directory: %v\n", dirname)
-	dir, err := os.Open(path.Join(dirname, "../"))
-	if err != nil {
-		panic(err)
-	}
-
-	return dir.Name()
-	//fmt.Printf("Name of ../../: %v\n", dir.Name())
 }

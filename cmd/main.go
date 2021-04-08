@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"os/signal"
+	"path"
 	"syscall"
 	"time"
 
@@ -33,7 +34,7 @@ func main() {
 		log.WithError(err).Fatal("Could not run the application.")
 	}
 
-	points, err := ctrlPoints.GetPoints()
+	points, err := ctrlPoints.GetPoints(get_points_file_path())
 	if err != nil {
 		log.WithError(err).Fatal("Could not run the application.")
 	} else {
@@ -83,4 +84,18 @@ func shutdownSignal(ctrlHttp httpServerCtrl.Interactor) {
 			}
 		}
 	}()
+}
+
+func get_points_file_path() string {
+	dirname, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	dir, err := os.Open(path.Join(dirname, "../"))
+	if err != nil {
+		panic(err)
+	}
+
+	return dir.Name() + "/data/points.json"
 }

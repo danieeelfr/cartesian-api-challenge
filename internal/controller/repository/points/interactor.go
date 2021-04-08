@@ -3,7 +3,7 @@ package points
 import "github.com/danieeelfr/cartesian/internal/entity"
 
 type Interactor interface {
-	GetPoints() ([]entity.Point, error)
+	GetPoints(filePath string) ([]entity.Point, error)
 }
 
 func New() (Interactor, error) {
