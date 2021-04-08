@@ -8,7 +8,7 @@ import (
 
 	"github.com/danieeelfr/cartesian/internal/config"
 	httpServerCtrl "github.com/danieeelfr/cartesian/internal/controller/httpserver"
-	pointsCtrl "github.com/danieeelfr/cartesian/internal/controller/points"
+	pointsRepositoryCtrl "github.com/danieeelfr/cartesian/internal/controller/repository/points"
 
 	"github.com/danieeelfr/cartesian/pkg/wait"
 
@@ -28,7 +28,7 @@ func init() {
 func main() {
 	log.Info("Starting application...")
 
-	ctrlPoints, err := pointsCtrl.NewPoints()
+	ctrlPoints, err := pointsRepositoryCtrl.NewPoints()
 	if err != nil {
 		log.WithError(err).Fatal("Could not run the application.")
 	}
