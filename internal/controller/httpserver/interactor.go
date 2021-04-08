@@ -7,7 +7,6 @@ import (
 
 type Interactor interface {
 	Start() error
-	Shutdown()
 }
 
 func New(cfg *config.Config) (Interactor, error) {

@@ -1,8 +1,6 @@
 package httpserver
 
 import (
-	"context"
-
 	"github.com/danieeelfr/cartesian/internal/config"
 
 	"github.com/go-playground/validator/v10"
@@ -39,19 +37,11 @@ func (srv *server) Start() error {
 	srv.setValidator()
 	srv.router.build()
 
-	// go func() {
 	if err := srv.e.Start(srv.conf.HttpServerHost); err != nil {
 		log.WithError(err).Fatalf("Failed to start http server. Host: [%s].", srv.conf.HttpServerHost)
 	}
-	// }()
+
 	return nil
-}
-
-func (srv *server) Shutdown() {
-
-	if err := srv.e.Shutdown(context.Background()); err != nil {
-		log.WithError(err).Error("Failed to shutdown server.")
-	}
 }
 
 func (srv *server) setValidator() {
