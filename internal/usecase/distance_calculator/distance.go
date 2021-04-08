@@ -1,6 +1,7 @@
 package distance_calculator
 
 import (
+	"errors"
 	"sort"
 	"strconv"
 
@@ -29,7 +30,7 @@ func (uc *distanceUsecase) GetPointsByDistance(params *DistanceParams) (*Distanc
 	response := new(entity.DistanceResponse)
 
 	if err = params.validate(); err != nil {
-		return nil, err
+		return nil, errors.New(entity.BusinessError)
 	}
 
 	origin := entity.Point{
@@ -52,13 +53,10 @@ func (uc *distanceUsecase) GetPointsByDistance(params *DistanceParams) (*Distanc
 		}
 	}
 
-	log.Info(points)
-
 	sort.SliceStable(points, func(i, j int) bool {
 		return points[i].DistanceFromOrigin < points[j].DistanceFromOrigin
 	})
 
-	log.Info(points)
 	response.Points = points
 
 	return &DistanceResponse{
@@ -76,7 +74,7 @@ func abs(x int64) int64 {
 func stringToInt64(value string) int64 {
 	number, err := strconv.ParseInt(value, 10, 64)
 	if err != nil {
-		log.WithError(err).Errorf("Failed to convert document number. Value: [%s].", value)
+		log.WithError(err).Errorf("Failed to converting to int64. Value: [%s].", value)
 		return 0
 	}
 	return number
