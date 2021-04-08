@@ -7,7 +7,7 @@ import (
 
 type (
 	DistanceInteractor interface {
-		GetDistance(params *DistanceParams) (*DistanceResponse, error)
+		GetPointsByDistance(params *DistanceParams) (*DistanceResponse, error)
 	}
 )
 

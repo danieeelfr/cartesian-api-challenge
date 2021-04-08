@@ -2,30 +2,24 @@ package distance_calculator
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/danieeelfr/cartesian/internal/entity"
 
 	"github.com/sirupsen/logrus"
 )
 
-const (
-	DistanceResource = "distance"
-)
-
 var (
-	log      = logrus.WithField("package", "usecase.spi")
-	maxDelay time.Duration
+	log = logrus.WithField("package", "usecase.spi")
 )
 
 type DistanceParams struct {
-	entity.Distance
+	entity.DistanceRequest
 }
 
 func (p *DistanceParams) UnmarshalJSON(data []byte) error {
 
 	parser := struct {
-		entity.Distance
+		entity.DistanceRequest
 	}{}
 	if err := json.Unmarshal(data, &parser); err != nil {
 		return err
@@ -35,7 +29,7 @@ func (p *DistanceParams) UnmarshalJSON(data []byte) error {
 }
 
 func (p *DistanceParams) validate() error {
-	return p.Distance.Validate()
+	return p.DistanceRequest.Validate()
 }
 
 type DistanceResponse struct {

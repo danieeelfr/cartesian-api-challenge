@@ -17,22 +17,30 @@ var (
 	log = logrus.WithField("package", "entity")
 )
 
-type Distance struct {
+type DistanceRequest struct {
 	X        string `json:"x"`
 	Y        string `json:"y"`
 	Distance string `json:"distance"`
 }
 
-func (ref *Distance) Validate() (err error) {
+func (ref *DistanceRequest) Validate() (err error) {
+
+	if len(strings.TrimSpace(ref.X)) == 0 {
+		return errors.New(BadRequestError)
+	}
+
+	if len(strings.TrimSpace(ref.Y)) == 0 {
+		return errors.New(BadRequestError)
+	}
 
 	if len(strings.TrimSpace(ref.Distance)) == 0 {
-		return errors.New("bad request")
+		return errors.New(BadRequestError)
 	}
 
 	return
 }
 
-func (ref *Distance) String() string {
+func (ref *DistanceRequest) String() string {
 
 	b, err := json.Marshal(ref)
 	if err != nil {

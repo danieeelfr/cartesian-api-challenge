@@ -37,7 +37,7 @@ func newRouter(e *echo.Echo, cfg *config.Config, wg *wait.Wait) (*router, error)
 			&route{
 				method:   http.MethodGet,
 				endpoint: DistanceEndpoint,
-				handler:  handler.GetDistance,
+				handler:  handler.GetPointsByDistance,
 			},
 		},
 	}, nil

@@ -44,7 +44,7 @@ func (suite *DistanceUsecaseTestSuite) BeforeTest(suiteName, testName string) {
 	log.WithField("suite", suiteName).WithField("name", testName).Debug("Test begin.")
 
 	switch testName {
-	case "TestGetDistance":
+	case "TestGetPointsByDistance":
 		// response := new(entity.DistanceResponse)
 		// uuid := suite.ctx.Value(fxlog.TraceFieldName).(string)
 		// suite.acc.On("CompleteWithdraw", suite.ctx, MyUniqueID).Return(nil)
@@ -73,7 +73,7 @@ func (suite *DistanceUsecaseTestSuite) BeforeTest(suiteName, testName string) {
 	}
 }
 
-func (suite *DistanceUsecaseTestSuite) TestGetDistance() {
+func (suite *DistanceUsecaseTestSuite) TestGetPointsByDistance() {
 
 	type Output struct {
 		resp *DistanceResponse
@@ -116,7 +116,7 @@ func (suite *DistanceUsecaseTestSuite) TestGetDistance() {
 	// }
 
 	// for _, v := range *values {
-	// 	resp, err := suite.usecase.GetDistance(v.input)
+	// 	resp, err := suite.usecase.GetPointsByDistance(v.input)
 	// 	// TODO: Add assert expectations.
 	// 	assert.Equal(suite.T(), v.output.resp, resp, v.description)
 	// 	assert.Equal(suite.T(), v.output.err, err, v.description)
@@ -136,17 +136,17 @@ func TestUsecase(t *testing.T) {
 	suite.Run(t, new(DistanceUsecaseTestSuite))
 }
 
-func createDistance() entity.Distance {
+func createDistance() entity.DistanceRequest {
 
-	return entity.Distance{
+	return entity.DistanceRequest{
 		// ID: MyUniqueID,
 
 	}
 }
 
-func createInvalidDistance() entity.Distance {
+func createInvalidDistance() entity.DistanceRequest {
 
-	return entity.Distance{
+	return entity.DistanceRequest{
 		// ID:       MyUniqueID,
 
 	}

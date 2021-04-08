@@ -12,11 +12,6 @@ import (
 )
 
 var (
-	// validationError          validator.ValidationErrors
-	// statusBadRequest         = strconv.Itoa(http.StatusBadRequest)
-	// statusNotFound           = strconv.Itoa(http.StatusNotFound)
-	// statusServiceUnavailable = strconv.Itoa(http.StatusServiceUnavailable)
-
 	log = logrus.WithField("package", "controller.httpserver")
 )
 
@@ -36,7 +31,7 @@ func newHandler(cfg *config.Config, wg *wait.Wait) (*handler, error) {
 	return hdl, nil
 }
 
-func (hdl *handler) GetDistance(c echo.Context) error {
+func (hdl *handler) GetPointsByDistance(c echo.Context) error {
 
 	if !hdl.wait.Add() {
 		return http.ErrServerClosed
@@ -54,7 +49,7 @@ func (hdl *handler) GetDistance(c echo.Context) error {
 	}
 
 	log.Infof("Processing the request. Parameters: %v.", params.Distance)
-	response, err := hdl.uc.GetDistance(params)
+	response, err := hdl.uc.GetPointsByDistance(params)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}

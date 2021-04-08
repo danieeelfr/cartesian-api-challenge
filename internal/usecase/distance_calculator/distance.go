@@ -22,7 +22,7 @@ func newDistanceUsecase(c *config.CartesianApiConfig, w *wait.Wait) *distanceUse
 	return uc
 }
 
-func (uc *distanceUsecase) GetDistance(params *DistanceParams) (*DistanceResponse, error) {
+func (uc *distanceUsecase) GetPointsByDistance(params *DistanceParams) (*DistanceResponse, error) {
 	var err error
 	response := new(entity.DistanceResponse)
 
@@ -32,9 +32,9 @@ func (uc *distanceUsecase) GetDistance(params *DistanceParams) (*DistanceRespons
 
 	origin := entity.Point{
 		Name:               "origin",
-		PosX:               stringToInt64(params.Distance.X),
-		PosY:               stringToInt64(params.Distance.Y),
-		DistanceFromOrigin: stringToInt64(params.Distance.Distance),
+		PosX:               stringToInt64(params.DistanceRequest.X),
+		PosY:               stringToInt64(params.DistanceRequest.Y),
+		DistanceFromOrigin: stringToInt64(params.DistanceRequest.Distance),
 	}
 
 	points := make([]entity.Point, 0)
