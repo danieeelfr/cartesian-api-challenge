@@ -4,6 +4,4 @@ export GONOSUMDB=github.com/danieeelfr/*
 
 export LOG_LEVEL="debug"
 
-export HTTP_SERVER_HOST=:51235
-export HEALTH_HOST=:51236
-export WAIT_SECONDS_TO_SHUTDOWN=5
+export HTTP_SERVER_HOST=:51234
