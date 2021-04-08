@@ -6,7 +6,6 @@ import (
 
 	"github.com/danieeelfr/cartesian/internal/config"
 	"github.com/danieeelfr/cartesian/internal/entity"
-	"github.com/danieeelfr/cartesian/pkg/wait"
 	"github.com/sirupsen/logrus"
 )
 
@@ -15,13 +14,11 @@ var (
 )
 
 type distanceUsecase struct {
-	wait   *wait.Wait
 	points []entity.Point
 }
 
-func newDistanceUsecase(c *config.CartesianApiConfig, w *wait.Wait) *distanceUsecase {
+func newDistanceUsecase(c *config.CartesianApiConfig) *distanceUsecase {
 	uc := &distanceUsecase{
-		wait:   w,
 		points: c.Points,
 	}
 	return uc

@@ -5,7 +5,6 @@ import (
 
 	"github.com/danieeelfr/cartesian/internal/config"
 	usecase "github.com/danieeelfr/cartesian/internal/usecase/distance_calculator"
-	"github.com/danieeelfr/cartesian/pkg/wait"
 	"github.com/sirupsen/logrus"
 
 	"github.com/labstack/echo/v4"
@@ -16,27 +15,20 @@ var (
 )
 
 type handler struct {
-	wait *wait.Wait
 	uc   usecase.DistanceInteractor
 }
 
-func newHandler(cfg *config.Config, wg *wait.Wait) (*handler, error) {
+func newHandler(cfg *config.Config) (*handler, error) {
 
 	hdl := new(handler)
-	hdl.wait = wg
 
 	CartesianApiConfig := cfg.GetCartesianApiConfig()
 
-	hdl.uc = usecase.New(CartesianApiConfig, wg)
+	hdl.uc = usecase.New(CartesianApiConfig)
 	return hdl, nil
 }
 
 func (hdl *handler) GetPointsByDistance(c echo.Context) error {
-
-	if !hdl.wait.Add() {
-		return http.ErrServerClosed
-	}
-	defer hdl.wait.Done()
 
 	params := new(usecase.DistanceParams)
 

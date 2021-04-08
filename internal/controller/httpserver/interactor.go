@@ -3,7 +3,6 @@ package httpserver
 import (
 	"github.com/danieeelfr/cartesian/internal/config"
 
-	"github.com/danieeelfr/cartesian/pkg/wait"
 )
 
 type Interactor interface {
@@ -11,9 +10,9 @@ type Interactor interface {
 	Shutdown()
 }
 
-func New(cfg *config.Config, wg *wait.Wait) (Interactor, error) {
+func New(cfg *config.Config) (Interactor, error) {
 
-	httpSrv, err := NewHttpServer(cfg, wg)
+	httpSrv, err := NewHttpServer(cfg)
 	if err != nil {
 		return nil, err
 	}

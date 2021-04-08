@@ -3,11 +3,9 @@ package distance_calculator
 import (
 	"context"
 	"testing"
-	"time"
 
 	"github.com/danieeelfr/cartesian/internal/config"
 	"github.com/danieeelfr/cartesian/internal/entity"
-	"github.com/danieeelfr/cartesian/pkg/wait"
 
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/suite"
@@ -19,10 +17,8 @@ const (
 
 type DistanceUsecaseTestSuite struct {
 	suite.Suite
-
 	usecase *distanceUsecase
 	ctx     context.Context
-	begun   time.Time
 }
 
 func (suite *DistanceUsecaseTestSuite) SetupSuite() {
@@ -30,12 +26,9 @@ func (suite *DistanceUsecaseTestSuite) SetupSuite() {
 	logrus.SetLevel(logrus.InfoLevel)
 	log.Debug("Starting test usecase...")
 
-	w := wait.New()
-
 	c := &config.CartesianApiConfig{}
-	suite.usecase = newDistanceUsecase(c, w)
+	suite.usecase = newDistanceUsecase(c)
 	suite.ctx = context.Background()
-	suite.begun = time.Now()
 }
 
 func (suite *DistanceUsecaseTestSuite) BeforeTest(suiteName, testName string) {

@@ -4,8 +4,6 @@ import (
 	"net/http"
 
 	"github.com/danieeelfr/cartesian/internal/config"
-	"github.com/danieeelfr/cartesian/pkg/wait"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,9 +22,9 @@ type route struct {
 	handler  func(c echo.Context) error
 }
 
-func newRouter(e *echo.Echo, cfg *config.Config, wg *wait.Wait) (*router, error) {
+func newRouter(e *echo.Echo, cfg *config.Config) (*router, error) {
 
-	handler, err := newHandler(cfg, wg)
+	handler, err := newHandler(cfg)
 	if err != nil {
 		return nil, err
 	}
