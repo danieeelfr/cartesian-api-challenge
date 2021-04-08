@@ -14,9 +14,7 @@ import (
 )
 
 const (
-	MyUniqueID         = "my_unique_id"
-	MyUniqueExternalID = "my_unique_external_id"
-	AppNameTest        = "CARTESIAN"
+	AppNameTest = "CARTESIANAPI"
 )
 
 type DistanceUsecaseTestSuite struct {

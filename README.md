@@ -1,7 +1,7 @@
-CARTESIAN API - Tech challenge - 2021, April 
-##### https://github.com/tobym/cartesian
-==========================================
+# CARTESIAN API 
 ## Challenge Description
+##### https://github.com/tobym/cartesian
+
 Create an **API server in go**. It will deal with a series of points represented as (x,y) coordinates on a simple 2-dimensional plane.
 ![map](https://www.101computing.net/wp/wp-content/uploads/taxicab-manhattan-grid-layout-paths.gif)
 
@@ -28,102 +28,30 @@ This represents the Manhattan distance; points within distance from x and y are 
 
 __________
 # Solution
-### Prerequisites
-What things you need to install the software and how to install them
-#### Requires:
+#### Requirements:
 - Golang >= 1.15
 
 ### Development environment
-#### Setting environment variables
+#### Setting env vars
 ```bash
 . ./env.sh;
 ```
 
-#### Building
+#### Building the application
 ```bash
 go build -o ./bin/cartesianapi ./cmd/cartesianapi
 ```
 #### Running the source code tests
 ```bash
 go test -v -cover -covermode=atomic ./...
-```package entity
-
-import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"strings"
-
-	"github.com/sirupsen/logrus"
-)
-
-const (
-	ValidationMessageFormat = "Your request is not valid. Check the details."
-)
-
-var (
-	log = logrus.WithField("package", "entity")
-)
-
-type DistanceRequest struct {
-	X        string `json:"x"`
-	Y        string `json:"y"`
-	Distance string `json:"distance"`
-}
-
-func (ref *DistanceRequest) Validate() (err error) {
-
-	if len(strings.TrimSpace(ref.X)) == 0 {
-		return errors.New(BadRequestError)
-	}
-
-	if len(strings.TrimSpace(ref.Y)) == 0 {
-		return errors.New(BadRequestError)
-	}
-
-	if len(strings.TrimSpace(ref.Distance)) == 0 {
-		return errors.New(BadRequestError)
-	}
-
-	return
-}
-
-func (ref *DistanceRequest) String() string {
-
-	b, err := json.Marshal(ref)
-	if err != nil {
-		return fmt.Sprintf("Fail to parsing distance. Detail: [%s]", err)
-	}
-	return string(b)
-}
-
-type DistanceResponse struct {
-	Points []Point `json:"points"`
-}
-
-type Point struct {
-	Name               string `json:"name"`
-	PosX               int64  `json:"x"`
-	PosY               int64  `json:"y"`
-	DistanceFromOrigin int64  `json:"distance_from_origin"`
-}
-
-func (ref *DistanceResponse) String() string {
-
-	b, err := json.Marshal(ref)
-	if err != nil {
-		return fmt.Sprintf("Fail to parsing distance response. Detail: [%s]", err)
-	}
-	return string(b)
-}
-
+```
 #### Running the application
 ```bash
 ./bin/cartesianapi
 ```
 
 #### Directory
-The directory structure follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
+Based on [Standard Go Project Layout](https://github.com/golang-standards/project-layout).
 ```
 .
 ├── cmd
@@ -138,9 +66,10 @@ The directory structure follows the [Standard Go Project Layout](https://github.
 │   │   │   ├── router.go
 │   │   │   ├── interactor.go
 │   │   │   └── server.go
-│   │   ├── points
-│   │   │   ├── points.go
-│   │   │   └── interactor.go
+|	|	├── repository
+│   │   |	├── points
+│   │   |	│   ├── points.go
+│   │   |	│   └── interactor.go
 │   ├── entity
 │   │   ├── errors.go
 │   │   ├── distance.go
@@ -152,4 +81,5 @@ The directory structure follows the [Standard Go Project Layout](https://github.
 │           ├── interactor.go
 │           ├── distance.go
 │           ├── distance_test.go
+|──env.sh
 ```

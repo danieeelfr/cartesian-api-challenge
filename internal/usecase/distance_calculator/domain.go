@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	log = logrus.WithField("package", "usecase.spi")
+	log = logrus.WithField("package", "usecase.distance_calculator")
 )
 
 type DistanceParams struct {
