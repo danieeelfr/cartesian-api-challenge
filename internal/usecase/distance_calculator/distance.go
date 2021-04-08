@@ -7,6 +7,11 @@ import (
 	"github.com/danieeelfr/cartesian/internal/config"
 	"github.com/danieeelfr/cartesian/internal/entity"
 	"github.com/danieeelfr/cartesian/pkg/wait"
+	"github.com/sirupsen/logrus"
+)
+
+var (
+	log = logrus.WithField("package", "entity")
 )
 
 type distanceUsecase struct {
