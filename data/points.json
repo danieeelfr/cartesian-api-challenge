@@ -1,0 +1,34 @@
+{
+    "points": [
+        {
+            "name": "Point A",
+            "x": 1,
+            "y": 1 
+        },
+        {
+            "name": "Point B",
+            "x": 2,
+            "y": 2 
+        },
+        {
+            "name": "Point C",
+            "x": 3,
+            "y": 3 
+        },
+        {
+            "name": "Point D",
+            "x": -1,
+            "y": -1 
+        },
+        {
+            "name": "Point E",
+            "x": -2,
+            "y": -2 
+        },
+        {
+            "name": "Point F",
+            "x": -3,
+            "y": -3 
+        }
+    ]
+}
