@@ -15,7 +15,8 @@
             "program": "${workspaceFolder}/cmd",
             "showLog": true,
             "env": {
-                "HTTP_SERVER_HOST":":51234"
+                "HTTP_SERVER_HOST":":51234",
+                "POINTS_FILE_PATH":"../data/points.json"
               }
         }
     ]

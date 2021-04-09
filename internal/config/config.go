@@ -29,6 +29,7 @@ func New(app string) *Config {
 		cfg.CartesianApiConfig = &CartesianApiConfig{
 			HttpServerHost: values[HttpServerHostEnvVar],
 		}
+		cfg.PointsFilePath = values[PointsFilePathEnvVar]
 	}
 
 	return cfg
@@ -40,6 +41,7 @@ func getEnvironmentVariables(app string) (map[string]string, error) {
 	case CartesianApp:
 		requiredEnvVars = []string{
 			HttpServerHostEnvVar,
+			PointsFilePathEnvVar,
 		}
 	}
 
@@ -49,24 +51,6 @@ func getEnvironmentVariables(app string) (map[string]string, error) {
 	}
 	return values, nil
 }
-
-// func parseUint(value string) uint {
-
-// 	number, err := strconv.Atoi(value)
-// 	if err != nil {
-// 		log.WithError(err).Fatalf("Failed to uint parsing. Value[%s].", value)
-// 	}
-// 	return uint(number)
-// }
-
-// func parseBool(value string) bool {
-
-// 	v, err := strconv.ParseBool(value)
-// 	if err != nil {
-// 		log.Fatalf("Failed to bool parsing. Value[%s].", value)
-// 	}
-// 	return v
-// }
 
 func checkMissing(requiredVars []string) (missing []string, values map[string]string) {
 	missing = []string{}

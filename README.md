@@ -39,7 +39,7 @@ __________
 
 #### Building the application
 ```bash
-go build -o ./bin/cartesianapi ./cmd/cartesianapi
+go build -o ./bin/cartesianapi ./cmd/
 ```
 #### Running the source code tests
 ```bash

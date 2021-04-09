@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"path"
 
 	"github.com/danieeelfr/cartesian/internal/config"
 	httpServerCtrl "github.com/danieeelfr/cartesian/internal/controller/httpserver"
@@ -27,7 +26,7 @@ func main() {
 		log.WithError(err).Fatal("Could not run the application.")
 	}
 
-	points, err := ctrlPoints.GetPoints(get_points_file_path())
+	points, err := ctrlPoints.GetPoints(os.Getenv(config.PointsFilePathEnvVar))
 	if err != nil {
 		log.WithError(err).Fatal("Could not run the application.")
 	} else {
@@ -47,18 +46,4 @@ func main() {
 		log.WithError(err).Fatal("Fail starting the http server.")
 	}
 
-}
-
-func get_points_file_path() string {
-	dirname, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	dir, err := os.Open(path.Join(dirname, "../"))
-	if err != nil {
-		panic(err)
-	}
-
-	return dir.Name() + "/data/points.json"
 }
