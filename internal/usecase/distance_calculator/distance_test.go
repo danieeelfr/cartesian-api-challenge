@@ -1,7 +1,6 @@
 package distance_calculator
 
 import (
-	"errors"
 	"fmt"
 	"testing"
 
@@ -72,7 +71,7 @@ func (suite *DistanceUsecaseTestSuite) TestGetPointsByDistance() {
 			},
 			output: &Output{
 				resp: nil,
-				err:  errors.New(entity.BusinessError),
+				err:  fmt.Errorf("Bad Request. Details: The field X is mandatory"),
 			},
 		},
 		{
@@ -85,7 +84,7 @@ func (suite *DistanceUsecaseTestSuite) TestGetPointsByDistance() {
 			},
 			output: &Output{
 				resp: nil,
-				err:  errors.New(entity.BusinessError),
+				err:  fmt.Errorf("Bad Request. Details: The field Y is mandatory"),
 			},
 		},
 		{
@@ -98,7 +97,7 @@ func (suite *DistanceUsecaseTestSuite) TestGetPointsByDistance() {
 			},
 			output: &Output{
 				resp: nil,
-				err:  errors.New(entity.BusinessError),
+				err:  fmt.Errorf("Bad Request. Details: The field Distance is mandatory"),
 			},
 		},
 		{
@@ -108,17 +107,18 @@ func (suite *DistanceUsecaseTestSuite) TestGetPointsByDistance() {
 			},
 			output: &Output{
 				resp: nil,
-				err:  errors.New(entity.BusinessError),
+				err:  fmt.Errorf("Bad Request. Details: The field X is mandatory"),
 			},
 		},
 	}
 
 	for _, v := range *values {
 		resp, err := suite.usecase.GetPointsByDistance(v.input)
-		assert.Equal(suite.T(), v.output.err, err)
 
 		if err == nil {
 			assert.Equal(suite.T(), len(resp.Data.Points), 2)
+		} else {
+			assert.Equal(suite.T(), fmt.Sprint(v.output.err), fmt.Sprint(err))
 		}
 	}
 }

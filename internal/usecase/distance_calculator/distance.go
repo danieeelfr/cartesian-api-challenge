@@ -1,7 +1,7 @@
 package distance_calculator
 
 import (
-	"errors"
+	"fmt"
 	"sort"
 	"strconv"
 
@@ -26,11 +26,10 @@ func newDistanceUsecase(c *config.CartesianApiConfig) *distanceUsecase {
 }
 
 func (uc *distanceUsecase) GetPointsByDistance(params *DistanceParams) (*DistanceResponse, error) {
-	var err error
 	response := new(entity.DistanceResponse)
 
-	if err = params.validate(); err != nil {
-		return nil, errors.New(entity.BusinessError)
+	if err := params.validate(); err != nil {
+		return nil, fmt.Errorf("Bad Request. Details: %w", err)
 	}
 
 	origin := entity.Point{
@@ -44,7 +43,6 @@ func (uc *distanceUsecase) GetPointsByDistance(params *DistanceParams) (*Distanc
 
 	for i := 0; i < len(uc.points); i++ {
 		p := uc.points[i]
-
 		manhattanDistance := abs(origin.PosX-p.PosX) + abs(origin.PosY-p.PosY)
 		p.DistanceFromOrigin = manhattanDistance
 
@@ -58,7 +56,6 @@ func (uc *distanceUsecase) GetPointsByDistance(params *DistanceParams) (*Distanc
 	})
 
 	response.Points = points
-
 	return &DistanceResponse{
 		Data: response,
 	}, nil

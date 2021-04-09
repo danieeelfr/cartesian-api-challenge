@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/sirupsen/logrus"
@@ -24,15 +24,15 @@ type DistanceRequest struct {
 func (ref *DistanceRequest) Validate() (err error) {
 
 	if len(strings.TrimSpace(ref.X)) == 0 {
-		return errors.New(BadRequestError)
+		return fmt.Errorf("The field X is mandatory")
 	}
 
 	if len(strings.TrimSpace(ref.Y)) == 0 {
-		return errors.New(BadRequestError)
+		return fmt.Errorf("The field Y is mandatory")
 	}
 
 	if len(strings.TrimSpace(ref.Distance)) == 0 {
-		return errors.New(BadRequestError)
+		return fmt.Errorf("The field Distance is mandatory")
 	}
 
 	return
